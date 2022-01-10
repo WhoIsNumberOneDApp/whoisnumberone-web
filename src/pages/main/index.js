@@ -10,7 +10,7 @@ import { ReactComponent as BlueBird } from "../../assets/images/blue_bird.svg";
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background-image: url(${backgroundNtIMG || backgroundIMG});
+  background-image: url(${backgroundIMG});
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -25,7 +25,20 @@ const ChildContainer = styled.div`
   justify-content: ${(props) => (props.right ? "end" : "start")};
 `;
 
+const Number = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: ${(props) => (props.right ? "end" : "start")};
+  justify-content: ${(props) => (props.right ? "end" : "start")};
+`;
+
 export default function Main({}) {
+  const [marketCap, setMarketCap] = useState({
+    china: 0,
+    taiwan: 0,
+  });
+
   return (
     <Container>
       <ChildContainer>
@@ -42,7 +55,17 @@ export default function Main({}) {
           className="ball"
           style={{ alignSelf: "start", marginLeft: "5%" }}
         />
-        <TwaianContainer />
+        <TwaianContainer>
+          {String(marketCap.taiwan)
+            .split("")
+            .map((x, i) => {
+              return (
+                <Number key={i.toString()} blue>
+                  {x}
+                </Number>
+              );
+            })}
+        </TwaianContainer>
       </ChildContainer>
     </Container>
   );
